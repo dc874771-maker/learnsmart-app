@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5b4bdb">
+<title>LearnSmart — Learn a little every day</title>
+<style>
+:root{--ink:#1e2140;--muted:#6d718a;--brand:#5b4bdb;--brand2:#8778ff;--bg:#f5f6ff;--card:#fff;--line:#e7e8f5;--good:#137a55;--bad:#b83b50}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #ffcb55;outline-offset:2px}
+header{background:linear-gradient(135deg,#5143ce,#8c72ff);color:#fff;padding:22px 18px 26px;border-radius:0 0 28px 28px}
+.top{display:flex;align-items:center;justify-content:space-between;max-width:760px;margin:auto}.logo{font-weight:850;font-size:1.25rem;letter-spacing:-.5px}.pill{background:#ffffff26;border:1px solid #ffffff55;padding:7px 11px;border-radius:99px;font-size:.83rem}
+.hero{max-width:760px;margin:24px auto 0}.hero h1{font-size:clamp(1.7rem,6vw,2.5rem);line-height:1.08;margin:0 0 10px;letter-spacing:-1px}.hero p{margin:0;color:#f1efff;max-width:480px}
+main{max-width:760px;margin:0 auto;padding:18px 16px 100px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:-2px}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #28255a08}.stat strong{display:block;font-size:1.25rem}.stat span{color:var(--muted);font-size:.78rem}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:25px 2px 12px}.section-head h2{font-size:1.15rem;margin:0}.section-head small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.lesson{width:100%;text-align:left;border:1px solid var(--line);border-radius:18px;padding:15px;background:#fff;color:var(--ink);min-height:155px;transition:transform .15s,border-color .15s}.lesson:active{transform:scale(.985)}.lesson .emoji{font-size:1.6rem;display:block;margin-bottom:8px}.lesson h3{margin:0 0 5px;font-size:1rem}.lesson p{margin:0;color:var(--muted);font-size:.84rem}.tag{display:inline-block;font-size:.72rem;color:var(--brand);background:#efedff;border-radius:7px;padding:4px 7px;margin-top:12px}
+.primary,.secondary{border:0;border-radius:12px;padding:12px 16px;font-weight:750}.primary{background:var(--brand);color:#fff}.secondary{background:#efedff;color:var(--brand)}.full{width:100%;margin-top:12px}
+#view{display:none}.back{border:0;background:transparent;color:var(--brand);font-weight:750;padding:8px 0;margin-bottom:8px}.lesson-body h2{font-size:1.6rem;line-height:1.2;margin:5px 0 12px}.lesson-body p{color:#4d526b}.callout{padding:14px;border-radius:14px;background:#f0efff;margin:16px 0}.question{font-weight:750;margin:20px 0 12px}.answers{display:grid;gap:9px}.answer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:left;color:var(--ink)}.answer.selected{border-color:var(--brand);background:#f1efff}.answer.correct{border-color:#38a879;background:#eaf9f2}.answer.wrong{border-color:#d45c6e;background:#fff0f2}.feedback{margin-top:12px;font-weight:650}.muted{color:var(--muted)}.progress{height:8px;background:#e8e7f6;border-radius:99px;overflow:hidden;margin:12px 0 18px}.progress div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0%;transition:width .2s}.empty{color:var(--muted);font-size:.9rem}.footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:28px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:clamp(15px,8vw,65px);padding:10px 12px calc(10px + env(safe-area-inset-bottom));z-index:5}nav button{border:0;background:transparent;color:var(--muted);font-size:.78rem;padding:4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px}nav button b{font-size:1.2rem}nav button.active{color:var(--brand);font-weight:800}
+@media(min-width:600px){main{padding-top:24px}.lesson{min-height:170px}.stat{padding:18px}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:11px}.stat strong{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div class="logo">✦ LearnSmart</div><div class="pill">🌍 Learn anywhere</div></div>
+ <div class="hero"><h1>Small lessons.<br>Big progress.</h1><p>Build your knowledge one short lesson at a time. Learn, practise, and celebrate your progress.</p></div>
+</header>
+<main>
+ <section id="home">
+  <div class="stats">
+   <div class="stat"><strong id="doneStat">0</strong><span>Lessons completed</span></div>
+   <div class="stat"><strong id="scoreStat">0%</strong><span>Quiz accuracy</span></div>
+   <div class="stat"><strong id="pointsStat">0</strong><span>Points earned</span></div>
+  </div>
+  <div class="section-head"><h2>Choose your next lesson</h2><small>5–10 minutes each</small></div>
+  <div class="grid" id="lessonGrid"></div>
+  <div class="card" style="margin-top:14px"><strong>💡 Your learning tip</strong><p class="muted" style="margin:6px 0 0">Consistency beats cramming. Try one short lesson today, then come back tomorrow.</p></div>
+ </section>
+ <section id="view">
+  <button class="back" id="backBtn">← All lessons</button>
+  <div class="card lesson-body" id="lessonContent"></div>
+ </section>
+ <section id="progressPage" style="display:none">
+  <div class="section-head"><h2>Your progress</h2></div>
+  <div class="card"><h3 style="margin-top:0">You're building a habit 🌱</h3><p id="progressText" class="muted">Complete a lesson and quiz to see your progress here.</p><div class="progress"><div id="progressBar"></div></div><strong id="progressCount">0 of 6 lessons completed</strong></div>
+  <div class="section-head"><h2>Completed lessons</h2></div><div class="card" id="completedList"><p class="empty">Your completed lessons will appear here.</p></div>
+  <button class="secondary full" id="resetBtn">Reset demo progress</button>
+ </section>
+ <div class="footer">LearnSmart demo · Your progress is saved on this device.<br>Sample learning content for the first version.</div>
+</main>
+<nav>
+ <button class="active" data-page="home"><b>⌂</b>Learn</button>
+ <button data-page="progressPage"><b>▥</b>Progress</button>
+ <button data-page="about"><b>ⓘ</b>About</button>
+</nav>
+<script>
+const lessons=[
+{id:'math',emoji:'🔢',title:'Everyday Maths',level:'Beginner',time:'5 min',intro:'Percentages help you compare parts of a whole. They are useful for discounts, tips, budgets, and understanding statistics.',body:'A percentage means “out of 100.” For example, 25% means 25 out of every 100. To find 10% of a number, divide it by 10. To find 25%, divide the number by 4.',example:'A shirt costs $40 and has a 25% discount. One quarter of $40 is $10, so the discount is $10 and the sale price is $30.',question:'What is 20% of 50?',answers:['5','10','20','25'],correct:1,explain:'20% is 20 out of 100, or one fifth. One fifth of 50 is 10.'},
+{id:'science',emoji:'🌱',title:'Science Basics',level:'Beginner',time:'6 min',intro:'Plants use sunlight to make their own food through a process called photosynthesis.',body:'During photosynthesis, plants use light energy to turn water and carbon dioxide into glucose (a type of sugar). Oxygen is released as a by-product. Chlorophyll, the green pigment in leaves, helps capture light.',example:'A plant kept in darkness for a long time may become weak because it cannot get enough light to photosynthesise normally.',question:'Which gas do plants take in for photosynthesis?',answers:['Oxygen','Helium','Carbon dioxide','Hydrogen'],correct:2,explain:'Plants use carbon dioxide and water, with light energy, to make glucose and release oxygen.'},
+{id:'english',emoji:'✍️',title:'English Skills',level:'Beginner',time:'5 min',intro:'A complete sentence usually expresses a complete thought and contains a subject and a verb.',body:'The subject tells us who or what the sentence is about. The verb tells us what the subject does or what state it is in. “Birds fly” is a complete sentence: “birds” is the subject and “fly” is the verb.',example:'“The bright red car.” is a phrase, not a complete sentence. “The bright red car stopped.” expresses a complete thought.',question:'Which option is a complete sentence?',answers:['After the long journey','The little blue house','The dog barked loudly.','Running through the park'],correct:2,explain:'“The dog barked loudly” has a subject (the dog) and a verb (barked), and expresses a complete thought.'},
+{id:'logic',emoji:'🧩',title:'Logical Thinking',level:'Beginner',time:'7 min',intro:'Logical thinking means using evidence and clear steps to reach a conclusion.',body:'Look for patterns, check assumptions, and separate facts from guesses. A conclusion is strong when it follows from the information you have. If information is missing, it is better to say “not enough information” than to guess.',example:'All squares have four sides. This shape is a square. Therefore, this shape has four sides.',question:'All roses are plants. Some plants grow indoors. What can we conclude about roses?',answers:['All roses grow indoors','No roses grow indoors','All plants are roses','We cannot tell whether any roses grow indoors'],correct:3,explain:'The statements do not tell us whether the indoor plants include roses, so we cannot conclude that roses do or do not grow indoors.'},
+{id:'digital',emoji:'🔐',title:'Digital Safety',level:'Beginner',time:'6 min',intro:'Your passwords and verification codes protect your accounts. Treat them like keys to your home.',body:'Use a unique password for each important account and turn on two-factor authentication when possible. Never share one-time verification codes with someone who contacts you unexpectedly. Be cautious of urgent messages asking you to click links or send money.',example:'If someone claims to be support and asks you to send them a login code, do not send it. Open the official app or website yourself to check.',question:'Someone you do not know asks for your one-time login code. What should you do?',answers:['Send it quickly','Post it publicly','Keep it private and verify through the official app','Reuse it as your password'],correct:2,explain:'One-time codes can give someone access to your account. Keep them private and verify requests through official channels.'},
+{id:'money',emoji:'💡',title:'Money Basics',level:'Beginner',time:'7 min',intro:'A budget is a simple plan for how you will use the money you receive.',body:'A useful first step is to write down income, essential costs, flexible spending, and savings. Track what you actually spend, then adjust your plan. Even small, regular savings can help build a buffer over time.',example:'If you receive $100, spend $70 on needs, and save $10, the remaining $20 can be planned for other spending rather than disappearing unnoticed.',question:'What is the main purpose of a budget?',answers:['To guarantee wealth','To plan and track income and spending','To avoid all spending','To make prices lower'],correct:1,explain:'A budget helps you make deliberate decisions about income, expenses, and saving. It cannot guarantee wealth, but it improves awareness.'}
+];
+let state={completed:[],points:0,attempts:0,correct:0};
+try{const saved=JSON.parse(localStorage.getItem('learnsmart-v1')||'null');if(saved)state={...state,...saved}}catch(e){}
+let current=null,answered=false;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem('learnsmart-v1',JSON.stringify(state))}catch(e){}}
+function stats(){ $('doneStat').textContent=state.completed.length;$('scoreStat').textContent=state.attempts?Math.round(state.correct/state.attempts*100)+'%':'0%';$('pointsStat').textContent=state.points;
+$('progressText').textContent=state.completed.length?`You've completed ${state.completed.length} lesson${state.completed.length===1?'':'s'}. Keep going — every small step counts.`:'Complete a lesson and quiz to see your progress here.';
+$('progressBar').style.width=(state.completed.length/lessons.length*100)+'%';$('progressCount').textContent=`${state.completed.length} of ${lessons.length} lessons completed`;
+$('completedList').innerHTML=state.completed.length?lessons.filter(l=>state.completed.includes(l.id)).map(l=>`<p>✅ ${l.emoji} ${l.title}</p>`).join(''):'<p class="empty">Your completed lessons will appear here.</p>'}
+function renderGrid(){$('lessonGrid').innerHTML=lessons.map(l=>`<button class="lesson" data-id="${l.id}"><span class="emoji">${l.emoji}</span><h3>${l.title}</h3><p>${l.time} · ${l.level}</p><span class="tag">${state.completed.includes(l.id)?'✓ Completed':'Start learning →'}</span></button>`).join('');document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>openLesson(b.dataset.id))}
+function showPage(page){$('home').style.display=page==='home'?'block':'none';$('view').style.display=page==='view'?'block':'none';$('progressPage').style.display=page==='progressPage'?'block':'none';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page||(page==='view'&&b.dataset.page==='home')));if(page==='about'){alert('LearnSmart is an early demo with sample lessons. Progress is saved only in this browser on this device.');showPage('home')}}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function openLesson(id){current=lessons.find(l=>l.id===id);answered=false;showPage('view');renderLesson()}
+function renderLesson(){$('lessonContent').innerHTML=`<div class="muted">${current.emoji} ${current.level} · ${current.time}</div><h2>${current.title}</h2><p>${current.intro}</p><div class="callout"><strong>Key idea</strong><p style="margin-bottom:0">${current.body}</p></div><p><strong>Example:</strong> ${current.example}</p><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><div class="question">Quick quiz: ${current.question}</div><div class="answers">${current.answers.map((a,i)=>`<button class="answer" data-answer="${i}">${String.fromCharCode(65+i)}. ${a}</button>`).join('')}</div><div id="feedback" class="feedback" aria-live="polite"></div><button id="nextBtn" class="primary full" style="display:none">Back to lessons</button>`;document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>answer(Number(b.dataset.answer)));$('nextBtn').onclick=()=>{showPage('home');renderGrid();stats()}}
+function answer(i){if(answered)return;answered=true;state.attempts++;const right=i===current.correct;if(right){state.correct++;state.points+=10}if(!state.completed.includes(current.id))state.completed.push(current.id);save();document.querySelectorAll('[data-answer]').forEach((b,n)=>{b.disabled=true;if(n===current.correct)b.classList.add('correct');if(n===i&&!right)b.classList.add('wrong')});$('feedback').style.color=right?'var(--good)':'var(--bad)';$('feedback').textContent=(right?'Correct! +10 points. ':'Not quite. ')+current.explain;$('nextBtn').style.display='block';$('nextBtn').textContent='Back to lessons';stats()}
+$('backBtn').onclick=()=>{showPage('home');renderGrid()};$('resetBtn').onclick=()=>{if(confirm('Reset all demo progress on this device?')){state={completed:[],points:0,attempts:0,correct:0};save();stats();renderGrid()}};stats();renderGrid();
+</script>
+</body>
+</html>
